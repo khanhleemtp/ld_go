@@ -8,9 +8,9 @@ import TextInput from '../components/textInput/TextInput'
 import TextChoice from '../components/textChoice/TextChoice'
 import { Link } from 'react-router-dom'
 import { Button, Result } from '../components'
-import Egg from '../components/egg'
-
-
+import { withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { getLesson } from '../redux/actions/lessonAction'
 
 const Styles = styled.div`
     color: #3c3c3c;
@@ -40,20 +40,31 @@ const Styles = styled.div`
 
         /* Header  */
         &-close{
-            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding: 40px;
-            svg{
+            justify-content: space-around;
+            padding: 40px 20px;
+            font-weight: 600;
+            svg{    
+                cursor: pointer;
                 opacity: 0.3;
                 width: 30px;
                 height: 30px;
             }
-            @media (min-width: 1280px) {
-                margin-right: 200px;
-             }
         }
+        &-process {
+            span{
+                color: #e892ca;
+            }
+        }
+
+        &-score {
+            span{
+                color: #e892ca;
+            }
+        }
+
+
         &-container{
         }
         &-answers-wrapper {
@@ -137,52 +148,6 @@ const Styles = styled.div`
                 justify-content: space-around;
             }
         }
-
-        .btn-check {
-            margin: 0 12px;
-            /* cursor: pointer; */
-            border-color: transparent;
-            border-top-left-radius: 18px;
-            border-top-right-radius: 18px;
-            padding: 13px 16px;
-            background: none;
-            border-radius: 16px;
-            border-width: 4px 0 0;
-            color: #afafaf;
-            min-width: 150px;
-            width: 100%;
-            font-size: 15px;
-            line-height: 20px;
-            display: inline-block;
-            text-align: center;
-            vertical-align: middle;
-            white-space: nowrap;
-            font-weight: 700;
-            letter-spacing: .8px;
-            text-transform: uppercase;
-            outline: none;
-            border: none;
-            &:hover{
-                /* background-color: #58cc02; */
-                color: #fff;
-                cursor: pointer;
-            }
-            @media (min-width: 640px) {
-                width: 150px;
-            }
-        }
-
-        .btn-check-1 {
-            display: none;
-            cursor: pointer;
-            @media (min-width: 640px) {
-                display: block;
-                &:hover{
-                background-color: #ddd;
-                color: #a5a5a5;
-                }
-            }
-            }
 
         /* Text-input */
         .text-input {
@@ -321,16 +286,23 @@ const Styles = styled.div`
 
 `
 
-function Lesson() {
+function Lesson(props) {
 
-
+    console.log(props.match.params);
+    const { title, currentlevel } = props.match.params;
     
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getLesson(title, currentlevel));
+    }, [dispatch, title, currentlevel])
 
     const history = useHistory();
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     let question = lessonData && lessonData.questions && lessonData.questions[currentQuestionIndex];
-    const questionLength = question.length;
+    const questionLength = lessonData && lessonData.questions.length;
+    console.log(question.length);
     let { correctAnswer } = question;
     const [score, setScore] = useState(0);
     const [correct, setCorrect] = useState(false);
@@ -401,11 +373,17 @@ function Lesson() {
                         <div className="image-choice-container">
                             <div className="image-choice-wrapper">
 
-                                <Link to="/learn">
                                     <div className="image-choice-close">
-                                        <GrClose />
+                                        <div className="image-choice-score">
+                                                Điểm: <span>{score}</span>
+                                        </div>
+                                        <div className="image-choice-process">
+                                                Tiến độ: <span>{currentQuestionIndex + 1}</span>/{questionLength} câu
+                                        </div>
+                                        <Link to="/learn">
+                                            <GrClose />
+                                        </Link>
                                     </div>
-                                </Link>
 
                                 <div className="image-choice-title">
                                     {question.title} ?
@@ -481,4 +459,4 @@ function Lesson() {
     )
 }
 
-export default (Lesson)
+export default withRouter(Lesson)

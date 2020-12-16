@@ -15,9 +15,9 @@ const EggComponent = ({  show, topic, id, currentLevel, maxLevel, image, getModa
         zIndex: 1,
         position: `absolute`,
         // transform: `translate(-50%, 50%)`,
-        filter: `brightness(1)`,
+        filter: `brightness(1.1)`,
         left: `50%`,
-        top: `80px`
+        top: `80px` 
     })
     
     return (

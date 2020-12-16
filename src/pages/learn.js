@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
 import Egg from '../components/egg'
 import EggComponent from '../rcomponents/Egg';
 import learnData from '../data/learn.json'; 
 import styled from 'styled-components'
-import { Footer, Header } from '../components';
 import TopScore from '../components/topscore/TopScore';
 import FooterLayout from '../components/layout/FooterLayout';
 import HeaderLayout from '../components/layout/HeaderLayout';
+import { getLearn } from '../redux/actions/learnAction';
 
 const LearnStyle = styled.div`
     overflow-x: hidden;
@@ -90,6 +92,16 @@ const LearnStyle = styled.div`
 `
 
 function Learn() {
+
+
+
+    const { username } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getLearn(username));
+    }, [dispatch, username])
+
 
     const [showModal, setshowModal] = useState(0);
     const getModal = (value) => {

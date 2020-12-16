@@ -1,78 +1,98 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Feature, OptForm } from '../components';
-import { useDispatch, useSelector } from 'react-redux'
-import { signIn } from '../redux/actions/authAction';
-import { Redirect } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { register } from '../redux/actions/authAction';
+import { useHistory, Redirect } from 'react-router-dom'
 import { clearErrors } from '../redux/actions/errorActions';
-const Home = () => {
+import { TokenService } from '../services/storage.service';
+const Register = () => {
+
+    const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
     const dispatch = useDispatch();
-    const { isAuthenticated } = useSelector(state => state.auth);
+    const history = useHistory();
+
     const error = useSelector(state => state.error);
-    const permissionRegister = () => {
-        dispatch({ type: 'REGISTER_FAIL' });
-        dispatch(clearErrors());
-    }
+    const auth = useSelector(state => state.auth);
+    console.log(auth);
+
+    console.log(error);
+
+    
 
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(signIn({ username, password }));
+        dispatch(register({ name, password, username }));
     }
 
-    if(isAuthenticated) {
-        return <Redirect to={'/learn'}/>
+    // useEffect(() => {
+    // }, [])
+
+    /**
+     * @content should return to Redirect
+    */
+    if(auth && auth.user) {
+            return <Redirect to={'/'} />
     }
-    
 
     return (
         <>
-          <OptForm>
-            <div style={{ position: 'absolute', top: '16px', left: '50%'}}>
-                <OptForm.ImgLogo src="images/ld-edu-logo.png" alt="logo"/>
-            </div>
-            <OptForm.WrapperForm>
+          <OptForm >
+            <OptForm.WrapperForm register>
                 <OptForm.Form onSubmit={onSubmit}>
                     <OptForm.ImageWrapper>
                         <img src="images/person1.svg" alt="hello" />
-                    </OptForm.ImageWrapper> 
+                    </OptForm.ImageWrapper>
                     <OptForm.WrapperInput>
-                        <OptForm.Title>Đăng nhập</OptForm.Title>               
-                    </OptForm.WrapperInput>  
+                        <OptForm.Title>Đăng Kí</OptForm.Title>
+                    </OptForm.WrapperInput>   
+                    
                     {
                         error && error.msg != {} ? (
                             <OptForm.WrapperInput>
                                 <OptForm.TextError>{error.msg}</OptForm.TextError>
                             </OptForm.WrapperInput> ) : null
                     }
+
+                    <OptForm.WrapperInput>
+                        <OptForm.Span>Tên của bạn</OptForm.Span>
+                        <OptForm.Input 
+                            onChange={e => setName(e.target.value)}
+                        />                
+                    </OptForm.WrapperInput>  
                     <OptForm.WrapperInput>
                         <OptForm.Span>Tên Đăng nhập</OptForm.Span>
                         <OptForm.Input 
-                            onChange={ e => setUsername(e.target.value)}
+                            onChange={e => setUsername(e.target.value)}
                         />                
                     </OptForm.WrapperInput>  
                     <OptForm.Break /> 
                     <OptForm.WrapperInput>
                         <OptForm.Span>Mật khẩu</OptForm.Span>
                         <OptForm.Input type="password"
-                            onChange={ e => setPassword(e.target.value)}
+                            onChange={e => setPassword(e.target.value)}
                         />                
                     </OptForm.WrapperInput>  
 
                     <Feature.WrapperCenter>
-                        <OptForm.Button type="submit">
-                            Chơi ngay
+                        <OptForm.Button type="submit" >
+                            Đăng kí
                             <img src="images/ic_Play.svg" alt="play"/>
                         </OptForm.Button>                        
                     </Feature.WrapperCenter>
+
                     <Feature.WrapperCenter>
-                        <OptForm.Text to="signup"
-                            onClick={permissionRegister}
+                        <OptForm.Text to="/"
+                            onClick={() => dispatch(clearErrors())}
                         >
-                            Đăng kí ngay?
+                            Bạn đã có tài khoản ?
                         </OptForm.Text>                       
                     </Feature.WrapperCenter>
-                </OptForm.Form>                
+
+                </OptForm.Form>  
+                              
             </OptForm.WrapperForm>
 
           </OptForm>      
@@ -80,4 +100,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Register

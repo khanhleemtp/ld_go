@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Check, Ignore } from './styles/button';
+import { Container, Check, Ignore, Logout } from './styles/button';
 
 export default function Button({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
@@ -11,4 +11,8 @@ export default function Button({ children, ...restProps }) {
 
 Button.Ignore = function ButtonIgnore({ children, ...restProps }) {
   return <Ignore {...restProps}>{children}</Ignore>;
+}
+
+Button.Logout = function ButtonLogout({ children, ...restProps }) {
+  return <Logout {...restProps}>{children}</Logout>;
 }

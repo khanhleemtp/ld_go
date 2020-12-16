@@ -7,13 +7,13 @@
     },
     {
         "title": "Thảo luận",
-        "link": "",
+        "link": "forum",
         "src": "imgHome/chat.svg",
         "alt": "thảo luận"
     },
     {
         "title": "Người dùng",
-        "link": "learn",
+        "link": "user",
         "src": "imgHome/user.svg",
         "alt": "người dùng"
     }

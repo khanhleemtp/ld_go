@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   position: relative;
@@ -42,10 +43,10 @@ export const WrapperForm = styled.div`
     justify-content: center;
     background: #fff; 
     width: 360px;
-    height: 300px;
+    height: ${props => props.register ? `400px`: `300px`};
     @media (min-width: 640px) {
         width: 560px;
-        height: 280px;
+        height: ${props => props.register ? `420px`: `320px`};
         flex-direction: row-reverse
   }
 `
@@ -92,7 +93,7 @@ export const Input = styled.input`
       height: 42px; 
       flex-shrink: 2;
       &:focus{
-        border: 2px solid #bedffd;
+        border: 2px solid #adf;
         outline: none;
       }
   }
@@ -106,10 +107,9 @@ export const ImageWrapper = styled.div`
   transform: translateX(-50%);
   left: 50%;
   top: -150px;
-  /* @media (min-width: 640px) {
-    top: -60%;
-    left: 40%;
-  } */
+  @media (min-width: 640px) {
+    top: -120px;
+  }
 `;
 
 export const Break = styled.div`
@@ -118,6 +118,7 @@ export const Break = styled.div`
 `;
 
 export const Button = styled.button`
+  outline: none;
   margin-top: 16px;
   display: flex;
   align-items: center;
@@ -146,11 +147,33 @@ export const Button = styled.button`
   }
 `;
 
-export const Text = styled.a`
+export const Text = styled(Link)`
   margin-top: 12px;
   cursor: pointer;
+  text-decoration: none;
   color: #57A4E2;
   &:hover{
     color: blue;
   }
+`;
+
+
+export const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #3e3e3e;
+  margin-bottom: 16px;
+`;
+
+export const TextError = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #f27474;
+  margin-bottom: 16px;
 `;

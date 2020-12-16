@@ -1,0 +1,6 @@
+{
+    "name": "LD Khánh",
+    "score": 1000,
+    "isPassing": ["basic1", "basic2", "basic3"],
+    "isRunning": ["basic4", "basic5", "basic6"]
+}

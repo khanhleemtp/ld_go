@@ -1,18 +1,18 @@
 [
     {
         "title": "Điều khoản",
-        "link": "learn"
+        "link": "clause"
     },
     {
         "title": "Giới thiệu về chúng tôi",
-        "link": ""
+        "link": "intro"
     },
     {
         "title": "Liên hệ",
-        "link": "learn"
+        "link": "contact"
     },
     {
         "title": "Thảo luận",
-        "link": "learn"
+        "link": "forum"
     }
 ]

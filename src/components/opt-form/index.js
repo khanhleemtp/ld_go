@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Input, Break, Button, Text, Span, WrapperInput, Form, ImageWrapper, ImgLogo, WrapperForm } from './styles/opt-form';
+import { Container, Input, Break, Button, Text, Span, WrapperInput, Form, ImageWrapper, ImgLogo, WrapperForm, Title, TextError } from './styles/opt-form';
 
 export default function OptForm({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
@@ -45,6 +45,16 @@ OptForm.Button = function OptFormButton({ children, ...restProps }) {
 OptForm.Text = function OptFormText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;
 };
+
+OptForm.TextError = function OptFormTextErrorr({ children, ...restProps }) {
+  return <TextError {...restProps}>{children}</TextError>
+};
+
+
+OptForm.Title = function OptFormTitle({ children, ...restProps }) {
+  return <Title {...restProps}>{children}</Title>;
+};
+
 
 OptForm.Break = function OptFormBreak({ ...restProps }) {
   return <Break {...restProps} />;

@@ -4,12 +4,17 @@ import App from './app';
 import 'normalize.css';
 import { GlobalStyles } from './globalStyles';
 import reportWebVitals from './reportWebVitals';
+import store from './redux/store';
+import { Provider } from 'react-redux';
+import ApiService from './services/api.service';
 
+
+ApiService.init();
 ReactDOM.render(
-  <>
+  <Provider store={store}>
     <GlobalStyles />
     <App />
-  </>
+  </Provider>
   ,
   document.getElementById('root')
 );

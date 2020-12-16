@@ -49,3 +49,10 @@ export const Ignore = styled(Container)`
                 }
             }
 `
+
+export const Logout = styled(Container)`
+    &:hover{
+        color: #fefefe;
+        background: #d93737;
+    }
+`
